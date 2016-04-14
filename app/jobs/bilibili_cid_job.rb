@@ -5,6 +5,7 @@ class BilibiliCidJob < ActiveJob::Base
 # get CID by AID( AV ),  then put into database
   def perform(episode_id, aid)
 
+  	# get cid first
   	api = 'http://www.bilibili.com/m/html5?aid=' + aid.to_s
 
 	url = URI.parse(api)
@@ -15,11 +16,13 @@ class BilibiliCidJob < ActiveJob::Base
 	cid = /(\d+)/.match(json['cid'])
 	cid = cid.to_s
 
+	# now we get interface url
 	appkey='85eb6835b0a1034e';  
 	secretkey = '2ad42749773c441109bdc0191257a664'
 	sign_this = Digest::MD5.hexdigest('appkey=' + appkey + '&cid=' + cid + secretkey)
 	interface_url = 'http://interface.bilibili.com/playurl?appkey=' + appkey + '&cid=' + cid + '&sign=' + sign_this  
 
+	# store into database
 	episode = Episode.find_by_id(episode_id)
 	episode.interface = interface_url
 	episode.save

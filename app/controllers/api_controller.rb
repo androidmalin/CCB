@@ -46,8 +46,16 @@ class ApiController < ApplicationController
 
   # return all series
   def series
+    redis = Redis.new
+    json = redis.get('cache-series')
+    if json != nil
+        render :inline => json
+        return
+    end
+
     @s = Serie.all.select(:title, :id, :image)
-    render json: @s
+    render :inline => @s.to_json
+    redis.set('cache-series', @s.to_json)
   end
   
   private 
