@@ -271,22 +271,32 @@
 
        <script>
       $(function () {
-                  var a = $("#course_select").val();
-                      $("#line1-course").text(a);
-        // init form.
-     //         系列继续选
+
+     // Init Form make create episode easier
+     // 系列继续选
      // 集数：下一集
      // 作者一样
      // 作者链接一样
+      var serie_id = localStorage.getItem("serie_id");
+      if (serie_id != null){
+            $('#course_select').find("option").filter(function() {
+                 return serie_id == $(this).data('serie-id');
+            }).attr('selected',true);
+      }
+      var a = $("#course_select").val();
+      $("#line1-course").text(a);
+
+      var serie_id = $('#course_select :selected').data('serie-id');
+
       var number = localStorage.getItem("number");
       if (number != null){
           $('.line1-number').text(number);
       }
 
-/*      var author_link = localStorage.getItem("author_link");
+      var author_link = localStorage.getItem("author_link");
       if (author_link != null){
           $('#author_link').val(author_link);
-      }*/
+      }
 
       var author_name = localStorage.getItem("author_name");
       if (author_name != null){
@@ -347,10 +357,10 @@
             var file = $('#episode_image_file').get(0).files[0];
 
             // store these for reload page
-            // localStorage.setItem("author_link", author_link);
-            localStorage.setItem("author_name", author_name);
+            localStorage.setItem("serie_id", serie_id);
             localStorage.setItem("number", parseInt(number) +1 );
-
+            localStorage.setItem("author_name", author_name);
+            localStorage.setItem("author_link", author_link);
 
             var fd = new FormData();
             fd.append("authenticity_token", 'h+GGlhredhlXi3X4BO+2j82ukDgWlDMwfYvKDjr+liJsB2WR1wvMt1ZhcDe0+SFzDKqHuQkRIR3BXM38dziBfw==');
