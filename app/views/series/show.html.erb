@@ -1,0 +1,91 @@
+<% content_for :title do %>
+    <%= @series.title %> serie
+<% end %>
+
+
+<% content_for :custom_style do %>
+<style type="text/css">
+  #all_episode{
+      padding-top: 20px;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  }
+  .episode{
+        display: -webkit-flex;
+        display: flex;
+        margin-bottom: 20px;
+        margin-top: 20px;
+  }
+  .episode img{
+       width: 320px;
+       height: 180px;
+       box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  }
+  .right{
+    width: 320px;
+    background-color: white;
+  }
+  .line1{
+    height: 60px;
+    line-height: 60px;
+    padding-left: 20px;
+    text-align: left;
+    font-size: 1.2em;
+    display:flex;
+  }
+  .line1 .line1-number{
+    margin-left: 5px;
+  }
+  .line2{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 1.7em;
+  }
+    .line3{
+    height: 60px;
+    line-height: 60px;
+    padding-right: 20px;
+    text-align: right;
+    font-size: 1.1em;
+  }
+</style>
+<% end %>
+
+<div class="content-wrapper">
+
+<div id="all_episode">
+      <% @e.each do |episode| %>
+      <div class="episode">
+          <div class="left">
+              <img src='/<%= episode.image %>' >
+          </div>
+          <div class="right" >
+          <div class="line1">经济学 第 <%= episode.number %> 集 </div>
+          <div class="line2"><%= episode.title %> </div>
+          <div class="line3"><%= episode.translator %></div>
+          </div>
+
+      </div>
+      
+      <div class="bottom" sytle='display:block;'>
+           <%= episode.video_link %>
+          <br>
+          <%= episode.author_link %>
+      </div>
+    
+      <tr>
+        <td><% link_to 'Show', episode %></td>
+        <td><% link_to 'Edit', edit_episode_path(episode) %></td>
+        <td><%= link_to 'Destroy', episode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+</div>
+</div>
+
+
+<% content_for :script_at_bottom do %>
+  <script src="/jquery-ujs.js"></script>
+<% end %>

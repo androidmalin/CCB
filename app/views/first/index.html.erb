@@ -1,0 +1,67 @@
+<% content_for :custom_style do %>
+<style type="text/css">
+
+</style>
+<% end %>
+
+
+<div class="content-wrapper">
+
+<div style="padding:30px;">
+
+  <h3>1. 说明</h3>
+  <p>
+    Serie 和 Episode 图片大小都是 320x180  <br> 
+    Serie 和 Episode 目前只有添加和删除, 没编辑功能  <br> 
+  </p>
+  
+ <br> 
+  <h3>2. 视频图片(Episode)的获取方法</h3>
+  
+  <p>
+  
+  <code> http://img.youtube.com/vi/<视频ID>/mqdefault.jpg </code> 
+  <br> <br> 
+  比如
+  <code>https://www.youtube.com/watch?v=kXhJ3hHK9hQ</code> 这个视频的地址就是: <br> 
+  <code>http://img.youtube.com/vi/kXhJ3hHK9hQ/mqdefault.jpg </code> <br> 
+  <br> 
+  之后就右键另存图片, 然后在新建 episode 的页面上传. <br> 
+  
+  </p>
+
+  <br>
+  <h3>3. 系列图片(Series)的获取方法</h3>
+  <p>
+  
+  <code>  https://www.youtube.com/user/crashcourse/playlists  </code>
+   <br> <br>
+  方法1  <br>
+  右键->审查元素->选中图片-> 直接就有地址了  <br> <br>
+  
+  方法2  <br>
+  https://www.youtube.com/watch?v=QPqR2wOs8WI&list=PL8dPuuaLjXtPTrc_yg73RghJEOdobAplG <br>
+  https://i.ytimg.com/vi/QPqR2wOs8WI/mqdefault.jpg <br>
+  似乎播放列表那张图是选自列表中某个视频的 thumbnail  <br>
+  你可以像上面一样拼下地址试试 <br>
+  </p>
+  
+  
+  <br>
+  <br>
+  <h3>4. 如果需要其他大小的视频图片(thumbnail)</h3>
+  
+  <code>
+  
+  http://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
+  </code>
+  
+  
+</div>
+
+
+<br><br><br><br><br>
+
+
+</div>
+

@@ -1,0 +1,155 @@
+<% content_for :custom_style do %>
+<link rel="stylesheet" href="/animate.css">
+    <style type="text/css">
+    #all_serie{
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: row wrap;
+        align-content: flex-end;
+    }
+    .single_serie{
+        margin-right: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        border-radius: 2px;
+        display: inline-block;
+
+    }
+    .single_serie img{
+        height: 120px;
+    }
+    .single_serie_title{
+      background-color:  white;
+      text-align: center;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      padding-left: 3px;
+      padding-right: 3px;
+      font-weight: bold;
+    }
+    .single_serie_title.create{
+      background-color: #00A65A;
+      color: #FFF;
+    }
+    .new_serie{
+        display: inline-block;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+   #empty{
+        box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        border-radius: 2px;
+        background-color: #00a65a;
+        width: 213.33px;
+        height: 120px;
+        text-align: center;
+        line-height: 120px;
+    }
+        .new_serie img{
+        height: 50px;
+    }
+    .create_btn{
+      width: 213.33px;
+      text-align: center;
+padding: 16px 3px;
+      background-color: #008548;
+      color: #fff;
+
+    }
+    .close_icon{
+      position: absolute; 
+      top: 8px; 
+      right: 10px; 
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      opacity: 0;
+      color: black;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    }
+
+   .close_icon:hover{
+      background-color: #e74c3c;
+      color: white;
+    }
+
+  .single_serie:hover .close_icon{
+        opacity: 1;
+    }
+
+    .close_icon i{
+      position: absolute; 
+      top: 8px; 
+      right: 9px; 
+    }
+
+  </style>
+
+<% end %>
+
+
+<div class="content-wrapper" style='background-color: #E3E7EC; ' >
+
+<div id="all_serie">
+    
+       <a href="../series/new">
+      <div class="single_serie">
+      <div id="empty">
+      <i class="ion ion-arrow-up-c" style='font-size: 24px;color: #FFF;position: relative;top: 15px;'></i>
+      </div>
+      <div class="create_btn">Create new serie</div>
+      </div>
+      </a>
+      
+     <% @series.each do |s| %>
+      
+      <div class="single_serie ">
+      <div class='image_box' style='position: relative;'>
+          <img src='../<%= s.image %>' >
+          <div class='close_icon' data-serie-id='<%= s.id %>'>
+                <i class="ion ion-close-round"></i>
+          </div>
+      </div>
+      <a href="/series/<%= s.id %>">
+      <div class="single_serie_title"><%= s.title %></div>
+      </a>
+      </div>
+      
+      <% end %>
+      
+</div>
+
+
+<% content_for :script_at_bottom do %>
+<script src="/jquery-ujs.js"></script>
+
+<script type="text/javascript">
+// after animate complete
+$(".single_serie").bind("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){ 
+  $(this).animate({width:'toggle'},350);
+});
+
+    $(".close_icon").click(function(){
+       var r = confirm("Delete?");
+        if (r == true) {
+          var serie_id = $(this).data('serie-id');
+          $.ajax({
+              type: "POST",
+              url: "/series/" + serie_id,
+              dataType: "json",
+              data: {"_method":"delete"},
+              context:this,
+              complete: function(){
+                  $(this).closest('.single_serie').addClass('animated zoomOut');
+              }
+          });
+        } 
+    })
+</script>
+
+<% end %>

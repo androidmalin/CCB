@@ -1,0 +1,2 @@
+class HahaController < ApplicationController
+end

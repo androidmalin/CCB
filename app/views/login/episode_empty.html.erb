@@ -1,0 +1,47 @@
+<% content_for :custom_style do %>
+<style type="text/css">
+ .content-wrapper{
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  }
+      #paging_box{
+          padding-top: 20px;
+          display: -webkit-flex;
+          display: flex;
+        flex-direction: column;
+        align-items: center;
+  }
+</style>
+<% end %>
+
+<div class="content-wrapper">
+
+<div id="paging_box">
+<ul class="pagination">
+  <li>
+  <a href="
+  <% if @page.to_i > 1 %> 
+    /admin/episode/<%= @page.to_i - 1 %>
+  <% end %>"
+  >
+  Prev
+  </a>
+  </li>
+</ul>
+</div>
+
+    <div id="all_episode">
+    <div style="margin-top: 40px; ">
+       Nothing Here
+    </div>
+    </div>
+
+</div>
+
+
+
+<% content_for :script_at_bottom do %>
+
+<% end %>
