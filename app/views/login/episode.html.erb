@@ -170,7 +170,7 @@
                   <i class="ion ion-arrow-up-c" style='font-size: 24px;color: #FFF;position: relative;top: 15px;'></i>
             </div>
 
-          <img  id='preview_image' src="/ic_menu_upload_you_tube.png" style='display:none;'>
+          <img  id='preview_image' src="" style='display:none;'>
               
           </div>
           <input  id='episode_image_file'  type="file"style='display:none;'></input>
@@ -199,9 +199,12 @@
                               <!-- <span class="help-block">123</span> -->
             </div>
 
+<!--       keep this cid input box, 
+            in case someday we can't get 'cid' from API, and then have to input manually
             <div class="form-group has-success">
                               <input type="text" class="form-control" id="video_cid" placeholder="CID (Optional, Only for Bilibili)  Example: 6922784" value=''>
-            </div>
+            </div> 
+-->
             <div class="form-group has-success">
                               <!-- <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Video link  </label> -->
                               <input type="text" class="form-control" id="author_link" placeholder="author link here">
@@ -257,6 +260,12 @@
                   <a href="<%= episode.author_link %>" target='_blank'><%= episode.author_link %></a>
                   </td>
                   </tr>
+                <tr role="row" class="odd">
+                  <td class="sorting_1" style='min-width: 100px;'>Interface</td>
+                  <td >
+                  <a href="<%= episode.interface %>" target='_blank'><%= episode.interface %></a>
+                  </td>
+                 </tr>
            </tbody>
               </table>
           </div>

@@ -29,24 +29,11 @@ class EpisodesController < ApplicationController
     @episode.translator = params[:episode][:author_name]
     
     #
-    # video from bilibili??
+    # process url
     #
     video_link = params[:episode][:video_link]  #assume this is 'http://www.bilibili.com/video/av4281373/'
     uri = URI.parse(video_link)
     host_middle = uri.host.split('.')[1]  # host_middle would be  'bilibili'
-
-    #
-    # if video from bilibili
-    # use 'cid' to get 'interface url'
-    #
-    if host_middle == 'bilibili'
-    appkey='85eb6835b0a1034e';  
-    secretkey = '2ad42749773c441109bdc0191257a664'
-    cid = params[:cid]
-    sign_this = Digest::MD5.hexdigest('appkey=' + appkey + '&cid=' + cid + secretkey)
-    interface_url = 'http://interface.bilibili.com/playurl?appkey=' + appkey + '&cid=' + cid + '&sign=' + sign_this  
-    @episode.interface = interface_url
-    end
 
     # 
     # image upload process
@@ -62,13 +49,18 @@ class EpisodesController < ApplicationController
     @episode.image = relative_file_path
     
     #
-    # other
+    # save
     #
     respond_to do |format|
       if @episode.save
-        render :nothing => true
-        #format.html { redirect_to @episode, notice: 'Episode was successfully created.' }
-        #format.json { render :show, status: :created, location: @episode }
+            render :nothing => true
+            # background job... get cid and then get interface xml
+            if host_middle == 'bilibili'
+                  episode_id = @episode.id
+                  aid = /(\d+)/.match(video_link)
+                  aid = aid.to_s
+                  BilibiliCidJob.perform_later(episode_id, aid)
+            end
       else
       render :nothing => true
         #format.html { render :new }

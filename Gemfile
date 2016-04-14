@@ -1,26 +1,30 @@
 source 'https://rubygems.org'
 
+gem 'net' 
+#gem 'uri'
 
-gem 'puma'
+gem 'puma'  # server
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil #The nifty Sidekiq Dashboard runs on Sinatra, which we have to add to the Gemfile.
 
+gem 'redis', '~>3.2'  # https://github.com/redis/redis-rb
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'
+
+
+# capistrano3 is for auto deploy. make your life a lot easier
 group :development do
+  gem 'capistrano-sidekiq'
   gem 'capistrano-rails'
   gem 'capistrano3-puma'
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm'
 end
 
-
-
-# Use Unicorn as the app server
-gem 'unicorn'
-
 gem 'mysql2', '~> 0.3.18'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

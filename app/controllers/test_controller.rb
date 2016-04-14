@@ -1,36 +1,25 @@
-
 class TestController < ApplicationController
-
-  layout false
+layout false
   def index
-  u = 'http://www.bilibili.com/video/av4281373/'
-#require 'uri'
-
-uri = URI.parse(u)
-host_middle = uri.host.split('.')[1]
-
-if host_middle == 'bilibili'
-	render :inline => 'yes'
-else
-	render :inline => 'no'
-end
-
-
+  	# render :nothing => true
 
 =begin
-appkey='85eb6835b0a1034e';  
-secretkey = '2ad42749773c441109bdc0191257a664'
-cid = "6922784"
-
-sign_this = Digest::MD5.hexdigest('appkey=' + appkey + '&cid=' + cid + secretkey)
-url = 'http://interface.bilibili.com/playurl?appkey=' + appkey + '&cid=' + cid + '&sign=' + sign_this  
-  render :inline => url
+	redis = Redis.new
+	redis.set('a', 'vasdasdads')
+	c = redis.get("a")
+	
 =end
 
+	# 	url = URI.parse('http://106.75.130.23/api/newest/1')
+	# req = Net::HTTP::Get.new(url.to_s)
+	# res = Net::HTTP.start(url.host, url.port) {|http|
+	#   http.request(req)
+	# }
+	# #render :inline => res.body
+  	
   end
   
 
 
-  
-  
+ 
 end
