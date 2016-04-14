@@ -10,6 +10,11 @@ require 'capistrano/puma'      # 因为使用puma做Server，所以要加上这�
 require 'capistrano/rails/assets' # for asset handling add
 require 'capistrano/rails/migrations' # for running migrations
 
+# sidekiq https://github.com/seuros/capistrano-sidekiq
+require 'capistrano/sidekiq'
+#require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
+
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

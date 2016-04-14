@@ -27,6 +27,8 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 
+set :sidekiq_monit_use_sudo, false
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -121,7 +123,11 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  
+  
 end
+
+
 
 #
 # 手动执行部分
@@ -132,6 +138,7 @@ namespace :setup do
   
   # 每次部署初始化的时候, 都会判断是否有, 如果没有才上传 database.yml 和 secrets.yml 
   # 当这俩文件更改了, 就手动跑一下下面这个强制覆盖
+  # cap production setup:force_upload_yml
   desc "Upload database.yml, secrets.xml file."
   task :force_upload_yml do
     on roles(:app) do
@@ -148,6 +155,7 @@ namespace :setup do
 
   # nginx 的配置在其他地方, 所以就连接一下到我们 config/nginx.conf 这个文件上面
   # 这样改配置就方便
+  # cap production setup:symlink_config
   desc "Symlinks config files for Nginx and Unicorn."
   task :symlink_config do
     on roles(:app) do
@@ -157,5 +165,15 @@ namespace :setup do
    end
   end
 
+  # cap production setup:start
+  desc "run sidekiq as deamon"
+  task :start do
+    on roles(:app) do
+      execute "cd #{current_path} && bundle exec sidekiq -c 10 -e production -L log/sidekiq.log -d"
+      p capture("ps aux | grep sidekiq | awk '{print $2}' | sed -n 1p").strip! 
+    end
+  end
 end
+
+
 
