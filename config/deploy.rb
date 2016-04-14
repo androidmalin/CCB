@@ -4,6 +4,7 @@ lock '3.4.0'
 set :application, 'CCB'
 set :repo_url, 'https://github.com/1c7/CCB'
 set :default_env, { path: "~/.rbenv/shims:~/.rbenv/bin:$PATH" }
+set :ssh_options, { :forward_agent => true }
 
 # Change these
 set :puma_threads,    [4, 16]

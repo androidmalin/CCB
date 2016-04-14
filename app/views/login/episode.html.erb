@@ -179,7 +179,7 @@
                 <div id="line1-course" contenteditable="true" spellcheck="false" style='background-color:#ebebeb'>choose</div>
             &nbsp;
             第
-            <div class="line1-number" contenteditable="true" spellcheck="false" style='padding-left: 5px; padding-right:5px; background-color:#ebebeb'>23</div>
+            <div class="line1-number" contenteditable="true" spellcheck="false" style='padding-left: 5px; padding-right:5px; background-color:#ebebeb'>1</div>
              &nbsp;集
           </div>
            <div class="line2"  >
@@ -195,21 +195,16 @@
 
             <div class="form-group has-success">
                               <!-- <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Video link  </label> -->
-                              <input type="text" class="form-control" id="video_link" placeholder="Video link here" value='http://www.bilibili.com/video/av4120610/'>
-
+                              <input type="text" class="form-control" id="video_link" placeholder="Video link here">
                               <!-- <span class="help-block">123</span> -->
             </div>
 
             <div class="form-group has-success">
-                              <!-- <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Video link  </label> -->
-                              <input type="text" class="form-control" id="video_cid" placeholder="cid here (optional, only for bilibili) example: 6922784" value=''>
-                              
-                              <!-- <span class="help-block">123</span> -->
+                              <input type="text" class="form-control" id="video_cid" placeholder="CID (Optional, Only for Bilibili)  Example: 6922784" value=''>
             </div>
             <div class="form-group has-success">
                               <!-- <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Video link  </label> -->
-                              <input type="text" class="form-control" id="author_link" placeholder="author link here"
-                              value='http://weibo.com/u/1876246981?topnav=1&wvr=6&topsug=1&is_hot=1'>
+                              <input type="text" class="form-control" id="author_link" placeholder="author link here">
                               <!-- <span class="help-block">123</span> -->
             </div>
             <div id="course_select_div"  class="form-group" style='width:170px; display: inline-block;  '>
@@ -276,22 +271,45 @@
 
        <script>
       $(function () {
+                  var a = $("#course_select").val();
+                      $("#line1-course").text(a);
+        // init form.
+     //         系列继续选
+     // 集数：下一集
+     // 作者一样
+     // 作者链接一样
+      var number = localStorage.getItem("number");
+      if (number != null){
+          $('.line1-number').text(number);
+      }
 
+/*      var author_link = localStorage.getItem("author_link");
+      if (author_link != null){
+          $('#author_link').val(author_link);
+      }*/
+
+      var author_name = localStorage.getItem("author_name");
+      if (author_name != null){
+          $('.line3-author').text(author_name);
+      }
+
+
+
+        // =====================
         //Initialize Select2 Elements
         $(".select2").select2(); 
 
-        // series choose
+        // Series choose
         $("#line1-course").focus(function(){
               $("#course_select_div").show();
               $("#course_select").select2("open");
-             
         });
        $(".select2").on("select2:close", function(e) { 
                   var a = $("#course_select").val();
                       $("#line1-course").text(a);
         });
 
-       // empty 
+       // if empty 
         $(".line1-number, .line2-title, .line3-author").focusout(function(){
           var v  = $(this).text();
           if(v == ""){
@@ -327,6 +345,12 @@
             var cid = $('#video_cid').val();  // bilibili cid.  optional 
             var author_link = $('#author_link').val();
             var file = $('#episode_image_file').get(0).files[0];
+
+            // store these for reload page
+            // localStorage.setItem("author_link", author_link);
+            localStorage.setItem("author_name", author_name);
+            localStorage.setItem("number", parseInt(number) +1 );
+
 
             var fd = new FormData();
             fd.append("authenticity_token", 'h+GGlhredhlXi3X4BO+2j82ukDgWlDMwfYvKDjr+liJsB2WR1wvMt1ZhcDe0+SFzDKqHuQkRIR3BXM38dziBfw==');
