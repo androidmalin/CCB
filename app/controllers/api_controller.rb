@@ -18,7 +18,7 @@ class ApiController < ApplicationController
         end
 
         @e = Episode
-        .order(:created_at)
+        .order("created_at DESC")
         .limit(config_per_page)
         .offset(offset.to_i)
         .select(:title, :id, :video_link, :number, :image, :translator, :created_at, :author_link, :html5)
