@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407095151) do
+ActiveRecord::Schema.define(version: 20160416090255) do
 
   create_table "episodes", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160407095151) do
     t.string   "author_link", limit: 255
     t.integer  "serie_id",    limit: 3
     t.string   "interface",   limit: 255
+    t.string   "html5",       limit: 255
   end
 
   create_table "series", force: :cascade do |t|

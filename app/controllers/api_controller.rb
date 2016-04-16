@@ -21,7 +21,7 @@ class ApiController < ApplicationController
         .order(:created_at)
         .limit(config_per_page)
         .offset(offset.to_i)
-        .select(:title, :id, :video_link, :number, :image, :translator, :created_at, :author_link, :interface)
+        .select(:title, :id, :video_link, :number, :image, :translator, :created_at, :author_link, :html5)
 
         if @e.empty?
           render :nothing => true
