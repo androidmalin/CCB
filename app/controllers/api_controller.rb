@@ -46,6 +46,7 @@ class ApiController < ApplicationController
 
   # return all series
   def series
+    # serie don't change a lot. so use redis here
     redis = Redis.new
     json = redis.get('cache-series')
     if json != nil

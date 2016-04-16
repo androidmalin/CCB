@@ -1,0 +1,65 @@
+
+<script type="text/javascript" src="http://static.hdslb.com/js/md5.js"></script>
+<script type="text/javascript">
+
+    function get_sign(params, key)
+ {
+    var s_keys = [];
+    for (var i in params)
+    {
+        s_keys.push(i);
+    }
+    s_keys.sort();
+    var data = "";
+    for (var i = 0; i < s_keys.length; i++)
+    {
+        // encodeURIComponent 返回的转义数字必须为大写( 如 %2F )
+        data+=(data ? "&" : "")+s_keys[i]+"="+encodeURIComponent(params[s_keys[i]]);
+    }
+    return {
+        "sign":hex_md5(data+key),
+        "params":data
+    };
+ }
+
+  p = {
+    "cid" : "7076936",
+    'player' : '1',
+    'ts': '1460728588'
+  };
+/*
+# cid = 7076936
+# player = 1
+# ts = 1460728588
+# sign=9f38b386a9d6eaf0135b5ccab2c474da
+*/
+ a = get_sign(p, '85eb6835b0a1034e');
+ console.log(a);  
+ //Object { sign: "3a85837f235a317906016f1f6b86dd37", params: "cid=7076936&player=1&ts=1460728588" }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
