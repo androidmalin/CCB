@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# for deploy  http://mina-deploy.github.io/mina/
+gem 'mina'  
+
+# https://github.com/untitledkingdom/mina-puma
+gem 'mina-puma', :require => false
+
 gem 'net' 
 #gem 'uri'
 
@@ -14,6 +20,7 @@ gem 'redis-rack-cache'
 
 
 # capistrano3 is for auto deploy. make your life a lot easier
+=begin
 group :development do
   gem 'capistrano-sidekiq'
   gem 'capistrano-rails'
@@ -21,6 +28,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm'
 end
+=end
 
 gem 'mysql2', '~> 0.3.18'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

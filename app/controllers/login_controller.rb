@@ -11,7 +11,7 @@ layout:false
   def test
     username = params[:user][:username]
     pwd = params[:user][:password]
-    if username == "zimuzu" and pwd == "crashcourse1!9" then
+    if username == "zimuzu" and pwd == "crashcourse1" then
       session[:current_user_id] = "3"
        redirect_to '/admin'
     else
